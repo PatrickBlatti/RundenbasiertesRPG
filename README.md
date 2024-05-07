@@ -11,6 +11,9 @@ Für das OOP Sommersemester 2024 für die TEKO soll ein Spiel erstellt werden. E
 -	es wird eine Konfigurationsdatei verwendet, um grundlegende Eigenschaften festzulegen
 -	 optional auch ein kollaboratives Element
 
+
+
+
 **Ziel**
 
 Grundlegendes Gameplay:
