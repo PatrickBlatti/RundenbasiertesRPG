@@ -1,6 +1,7 @@
 # RundenbasiertesRPG
-Epic
-Ausgangslage
+**Epic**
+**Ausgangslage**
+
 Für das OOP Sommersemester 2024 für die TEKO soll ein Spiel erstellt werden. Es soll folgende Elemente enthalten:
 -	ein grafisches Element auf Basis von Java Swing/AWT
 -	 ein zufälliges Element, was durch den Einsatz eines Zufallszahlengenerators erreicht wird,
@@ -10,13 +11,18 @@ Für das OOP Sommersemester 2024 für die TEKO soll ein Spiel erstellt werden. E
 -	es wird eine Konfigurationsdatei verwendet, um grundlegende Eigenschaften festzulegen
 -	 optional auch ein kollaboratives Element
 
-Ziel
+
+
+
+**Ziel**
 
 Grundlegendes Gameplay:
+
 Ein Rundenbasiertes RPG wird erstellt (Beispiel für Kampfsystem: Final Fantasy 4). Der Spieler wechselt kann agieren, anschliessend agiert der Computer-Gegner. Mögliche Aktionen sind Angriff, Verteidigen, Heilen. Die jeweiligen Aktionen haben eine Trefferchance (Zufallsgenerator).
 Die verbleibenden Hitpoints werden sowohl für den Gegner als auch für den Spieler angezeigt. 
 
 Mögliche weitere Mechaniken:
+
 -	Die Effektivität der einzelnen Handlungen werden von Statuswerten des Spielers und der Computer-Gegners bestimmt.
 -	Besiegte Gegner geben Punkte.
 -	Der Spieler kann seine Satuswerte zwischen den Kämpfen mit den erhaltenen Punkten verbessern.
