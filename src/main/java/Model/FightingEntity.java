@@ -1,5 +1,8 @@
 package Model;
 
+/**
+ * Base Class for all Fighting Entities in the Game.
+ */
 public abstract class FightingEntity {
 
     protected double _attackValue;
@@ -45,7 +48,17 @@ public abstract class FightingEntity {
      * @param target: Fighting Entity that is attacked.
      */
     public void Attack(FightingEntity target){
+        if(Math.random() * 100 > CalculateHitChance(target)){ return; }
         double damage = this.get_AttackValue() - target.get_DefenseValue();
         target.ReduceHitpoints(damage);
+    }
+
+    /**
+     * Calculates the Chance of Success for hitting the Target.
+     * @param target Target of the Action.
+     * @return the Chance of Success.
+     */
+    private int CalculateHitChance(FightingEntity target){
+        return 80;
     }
 }
