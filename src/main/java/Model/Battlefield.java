@@ -31,16 +31,16 @@ public class Battlefield {
      * Returns the Fighting Entity whose Turn it is
      * @return the Fighting Entity whose Turn it is
      */
-    public FightingEntity CurrentFightingEntity(){
-        return _FightingOrder.get(_Fightposition);
+    public FightingEntity getCurrentFightingEntity(){
+        return _FightingOrder.get(_Fightposition % _FightingOrder.size());
     }
 
     public void EndTurnForFightingEntity(){
         _Fightposition += 1;
 
-        FightingEntity current = CurrentFightingEntity();
+        FightingEntity current = getCurrentFightingEntity();
         if (current instanceof  Enemy){
-            get_FightingEntityAI().MakeMove(CurrentFightingEntity(), this);
+            get_FightingEntityAI().MakeMove(getCurrentFightingEntity(), this);
         }
     }
 

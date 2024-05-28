@@ -69,7 +69,7 @@ public class GameController {
      */
     public void GameOver(){
         //Validation über aktuelles Battlefield.
-        //GameOver => Neustart oder schliessen des Spiels.
+        //GameOver → Neustart oder schliessen des Spiels.
     }
 
     /**
