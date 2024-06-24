@@ -5,4 +5,7 @@ package Model;
  */
 public class Hero extends  FightingEntity{
 
+    public Hero(Type type) {
+        super(type);
+    }
 }

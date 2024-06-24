@@ -4,6 +4,9 @@ package Model;
  * Base Class for all Fighting Entities in the Game.
  */
 public abstract class FightingEntity {
+    public FightingEntity(Type type){
+        _type = type;
+    }
 
     protected double _attackValue;
     /**
@@ -60,5 +63,31 @@ public abstract class FightingEntity {
      */
     private int CalculateHitChance(FightingEntity target){
         return 80;
+    }
+
+    protected Type _type = null;
+    /**
+     * Returns the Type of the Fighting Entity.
+     * Used to determine which Sprite should be shown.
+     */
+    public Type get_Type(){
+        return _type;
+    }
+    public enum Type{
+        //Heroes
+        Warrior(1),
+        Mage(2),
+        Bowman(3),
+        Wizard(4),
+        Paladin(5),
+        Boar(100),
+        Mimic(101)
+
+        ;
+
+
+        Type(int i) {
+
+        }
     }
 }

@@ -41,6 +41,7 @@ public class Battlefield {
         FightingEntity current = getCurrentFightingEntity();
         if (current instanceof  Enemy){
             get_FightingEntityAI().MakeMove(getCurrentFightingEntity(), this);
+            EndTurnForFightingEntity();
         }
     }
 

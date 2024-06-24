@@ -3,6 +3,12 @@ package Controllers;
 import EventInterfaces.ICustomEventInterface;
 import Factories.ServiceFactory;
 import Model.Battlefield;
+import View.BattleFieldView;
+import View.Test2View;
+import View.TestView;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Starting point of the Game. Controls the different phases of the Game and instantiates the UI.
@@ -78,6 +84,15 @@ public class GameController {
      */
     public static void main(String[] args) {
         GameController gc = GameController.get_Instance();
-        //Weiter Implementation folgt
+
+//        BattleFieldView jFrame = new BattleFieldView(ServiceFactory.get_FightingEntitiesService().get_Heroes(),
+//                                     ServiceFactory.get_FightingEntitiesService().get_Enemies(1));
+        JFrame jFrame = new Test2View(ServiceFactory.get_FightingEntitiesService().get_Heroes(), ServiceFactory.get_FightingEntitiesService().get_Enemies(1));
+        jFrame.setSize(800,800);
+        jFrame.pack();
+        jFrame.setVisible(true);
+        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        //jFrame.setCurrentHero(0);
     }
 }

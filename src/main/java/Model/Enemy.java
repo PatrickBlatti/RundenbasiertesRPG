@@ -6,4 +6,7 @@ package Model;
 public class Enemy extends FightingEntity {
 
 
+    public Enemy(Type type) {
+        super(type);
+    }
 }

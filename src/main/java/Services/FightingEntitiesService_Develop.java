@@ -1,6 +1,7 @@
 package Services;
 
 import Model.Enemy;
+import Model.FightingEntity;
 import Model.Hero;
 
 import java.util.ArrayList;
@@ -14,14 +15,16 @@ public class FightingEntitiesService_Develop  implements IFightingEntitiesServic
 
     public List<Hero> get_Heroes(){
         List<Hero> heroes = new ArrayList<Hero>();
-        heroes.add(new Hero());
+        heroes.add(new Hero(FightingEntity.Type.Warrior));
+        //heroes.add(new Hero(FightingEntity.Type.Wizard));
         return heroes;
     }
 
 
     public List<Enemy> get_Enemies(int stage) {
-        List<Enemy> heroes = new ArrayList<Enemy>();
-        heroes.add(new Enemy());
-        return heroes;
+        List<Enemy> enemies = new ArrayList<Enemy>();
+        enemies.add(new Enemy(FightingEntity.Type.Boar));
+        //enemies.add(new Enemy(FightingEntity.Type.Mimic));
+        return enemies;
     }
 }
