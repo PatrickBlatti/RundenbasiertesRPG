@@ -5,7 +5,12 @@ package Model;
  */
 public class Hero extends  FightingEntity{
 
-    public Hero(Type type) {
-        super(type);
+    public Hero(Type type, int maxHP) {
+        super(type, maxHP);
+    }
+
+    @Override
+    public int get_AttackValue() {
+        return 20;
     }
 }

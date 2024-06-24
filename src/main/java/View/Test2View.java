@@ -3,17 +3,25 @@ package View;
 import Model.Enemy;
 import Model.Hero;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import View.SpriteMangement.FightingEntityDisplayer;
 import View.SpriteMangement.SpriteSheet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Used to test Changes before implementing them in the BattleGroundView
+ */
 public class Test2View extends JFrame {
     protected static final Logger logger = LogManager.getLogger();
     private final int GRID_ROWCOUNT = 4;
@@ -23,7 +31,7 @@ public class Test2View extends JFrame {
     private List<FightingEntityDisplayer> _heroDisplayers = new ArrayList<>();
     private final List<Enemy> _enemies;
     private List<FightingEntityDisplayer> _enemyDisplayers = new ArrayList<>();
-    private JPanel _Panel;
+    private BackgroundPanel _Panel;
     private GridBagConstraints _gridBagConstraints;
     private BufferedImage _backgroundImage;
     private int _currentHeroIndex = -1;
@@ -36,39 +44,23 @@ public class Test2View extends JFrame {
 
     private void initializeBattleField() {
         initializeGridWithBackground();
-//        placeEnemies();
-//        placeHeroes();
-//        placeActionButtons();
+        placeEnemies();
+        placeHeroes();
+        placeActionButtons();
         pack(); // Adjust frame to fit the preferred size and layouts of its subcomponents
     }
 
-    private void initializeGrid() {
-        _Panel = new JPanel(new GridBagLayout());
-        this.getContentPane().add(_Panel);
-        this.setLayout(new GridBagLayout());
-        _gridBagConstraints = new GridBagConstraints();
-
-        addSpacerPanel();
-
-        // TODO: Set Background
-    }
-
     private void initializeGridWithBackground() {
-        // Main panel containing background and entities
-        var backgroundPanel = new JPanel(new BorderLayout());
-        this.getContentPane().add(backgroundPanel);
+        try {
+            _backgroundImage = ImageIO.read(new File("C:\\Users\\pblat\\OneDrive - TEKO Schweizerische Fachschule AG\\Dokumente\\TEKO\\OOP\\Sommersemester 2024\\TurnbasedRPG\\src\\main\\resources\\background4.png"));
+        } catch (IOException e) {
+            logger.error("Failed to load background image", e);
+        }
 
-        // Load background image
-        ImageIcon backgroundImage = new ImageIcon("C:\\Users\\pblat\\OneDrive - TEKO Schweizerische Fachschule AG\\Dokumente\\TEKO\\OOP\\Sommersemester 2024\\TurnbasedRPG\\src\\main\\resources\\background4.png");
-        JLabel backgroundLabel = new JLabel(backgroundImage);
-        backgroundPanel.add(backgroundLabel, BorderLayout.CENTER);
+        _Panel = new BackgroundPanel(_backgroundImage);
+        _Panel.setLayout(new GridBagLayout());
+        this.getContentPane().add(_Panel);
 
-        // Transparent panel for entities
-        _Panel = new JPanel(new GridBagLayout());
-        _Panel.setOpaque(false);
-        backgroundPanel.add(_Panel, BorderLayout.CENTER);
-
-        this.setLayout(new GridBagLayout());
         _gridBagConstraints = new GridBagConstraints();
 
         addSpacerPanel();
@@ -97,6 +89,7 @@ public class Test2View extends JFrame {
             if (item instanceof Enemy) {
                 var displayer = new FightingEntityDisplayer(item);
                 addToGrid(displayer, 0, yPosition, 1, 1);
+                displayer.setOpaque(false);
 
                 _enemyDisplayers.add(displayer);
                 yPosition++;
@@ -170,6 +163,23 @@ public class Test2View extends JFrame {
         _gridBagConstraints.weighty = 1.0;
         _gridBagConstraints.fill = GridBagConstraints.BOTH;
         _Panel.add(component, _gridBagConstraints);
+    }
+
+    // Panel that paints the background image
+    class BackgroundPanel extends JPanel {
+        private BufferedImage backgroundImage;
+
+        public BackgroundPanel(BufferedImage backgroundImage) {
+            this.backgroundImage = backgroundImage;
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        }
     }
 
 }

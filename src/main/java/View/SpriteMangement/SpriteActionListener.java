@@ -4,10 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.Callable;
 
+/**
+ * ActionListener used to Update / Reset Sprite-Animation
+ */
 public class SpriteActionListener implements ActionListener {
     private final SpriteSheet _spriteSheet;
     private final SpriteEngine _engine;
-    private Runnable _repaint;
+    private final Runnable _repaint;
 
     public SpriteActionListener(SpriteSheet spriteSheet, SpriteEngine engine, Runnable repaint){
         this._spriteSheet = spriteSheet;

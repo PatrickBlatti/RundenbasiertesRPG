@@ -1,6 +1,5 @@
 package Model;
 
-import Controllers.GameController;
 import EventInterfaces.ICustomEventInterface;
 
 import java.util.ArrayList;
@@ -66,10 +65,20 @@ public class Battlefield {
     /**
      * All active Enemies on the Battlefield.
      */
-    private List<Enemy> Enemies(){
+    public List<Enemy> get_Enemies(){
         return _Enemies;
     }
 
+    /**
+     * Execute Attack from attacker to attacked.
+     * ToDo: Correct implementation of dataflow of who attacks whom.
+     * @param attacker: the Attacker
+     * @param attacked: the Attacked
+     */
+    public void Attack(FightingEntity attacker, FightingEntity attacked){
+        getCurrentFightingEntity().Attack(_Enemies.get(0));
+        EndTurnForFightingEntity();
+    }
 
     //region EventHandling
 

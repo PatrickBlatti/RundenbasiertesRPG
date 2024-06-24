@@ -1,8 +1,10 @@
 package Controllers;
 
 import EventInterfaces.ICustomEventInterface;
+import EventInterfaces.IFightingEntityActionInterface;
 import Factories.ServiceFactory;
 import Model.Battlefield;
+import Model.FightingEntity;
 import View.BattleFieldView;
 import View.Test2View;
 import View.TestView;
@@ -33,7 +35,6 @@ public class GameController {
      */
     private void Initialize(){
         CreateNewBattle();
-
     }
 
     /**
@@ -85,14 +86,22 @@ public class GameController {
     public static void main(String[] args) {
         GameController gc = GameController.get_Instance();
 
-//        BattleFieldView jFrame = new BattleFieldView(ServiceFactory.get_FightingEntitiesService().get_Heroes(),
-//                                     ServiceFactory.get_FightingEntitiesService().get_Enemies(1));
-        JFrame jFrame = new Test2View(ServiceFactory.get_FightingEntitiesService().get_Heroes(), ServiceFactory.get_FightingEntitiesService().get_Enemies(1));
+        BattleFieldView jFrame = new BattleFieldView(gc.get_Battlefield().get_Heroes(), gc.get_Battlefield().get_Enemies());
+        
         jFrame.setSize(800,800);
         jFrame.pack();
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        //jFrame.setCurrentHero(0);
+        //Set GameLogic to View
+        jFrame.setCurrentHero(0);
+
+        jFrame.addAttackListener(new IFightingEntityActionInterface(){
+            @Override
+            public void executeAction(FightingEntity attacked) {
+                get_Instance()._Battlefield.Attack(null, null);
+            }
+        });
+
     }
 }

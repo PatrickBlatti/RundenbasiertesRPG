@@ -1,7 +1,6 @@
-package View;
+package View.SpriteMangement;
 
 import Model.FightingEntity;
-import View.SpriteMangement.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,6 +13,10 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Used for Tests in TestView / Test2View
+ * Duplicates FightingEntityDisplayer.
+ */
 public class TestDisplayer extends JPanel {
     protected static final Logger logger = LogManager.getLogger();
     private SpriteSheet spriteSheet;

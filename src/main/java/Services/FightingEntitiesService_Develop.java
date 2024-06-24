@@ -15,7 +15,9 @@ public class FightingEntitiesService_Develop  implements IFightingEntitiesServic
 
     public List<Hero> get_Heroes(){
         List<Hero> heroes = new ArrayList<Hero>();
-        heroes.add(new Hero(FightingEntity.Type.Warrior));
+
+        heroes.add(new Hero(FightingEntity.Type.Warrior, 100));
+
         //heroes.add(new Hero(FightingEntity.Type.Wizard));
         return heroes;
     }
@@ -23,7 +25,7 @@ public class FightingEntitiesService_Develop  implements IFightingEntitiesServic
 
     public List<Enemy> get_Enemies(int stage) {
         List<Enemy> enemies = new ArrayList<Enemy>();
-        enemies.add(new Enemy(FightingEntity.Type.Boar));
+        enemies.add(new Enemy(FightingEntity.Type.Boar, 100));
         //enemies.add(new Enemy(FightingEntity.Type.Mimic));
         return enemies;
     }

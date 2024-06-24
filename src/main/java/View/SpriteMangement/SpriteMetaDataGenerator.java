@@ -231,4 +231,8 @@ public class SpriteMetaDataGenerator {
                 return new SpriteSheet.Range(0,0);
         }
     }
+
+    public static String get_BackgroundPath(){
+        return get_ResourcePath() + "/background4.png";
+    }
 }

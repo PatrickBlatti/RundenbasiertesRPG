@@ -6,9 +6,14 @@ import Model.Hero;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+
+import View.SpriteMangement.TestDisplayer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Used to test Changes before implementing them in the BattleGroundView
+ */
 public class TestView extends JFrame {
     protected static final Logger logger = LogManager.getLogger();
     private final int GRID_ROWCOUNT = 4;
@@ -43,7 +48,7 @@ public class TestView extends JFrame {
         int yPosition = 0;
         for (var item : _enemies) {
             if (item instanceof Enemy) {
-                var displayer = new View.TestDisplayer(item);
+                var displayer = new TestDisplayer(item);
                 addToGrid(displayer, 0, yPosition, 1, 1);
                 yPosition++;
             }
@@ -54,7 +59,7 @@ public class TestView extends JFrame {
         int yPosition = 0;
         for (var item : _heroes) {
             if (item instanceof Hero) {
-                var displayer = new View.TestDisplayer(item);
+                var displayer = new TestDisplayer(item);
                 addToGrid(displayer, 2, yPosition, 1, 1);
                 yPosition++;
             }

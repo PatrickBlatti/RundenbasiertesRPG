@@ -4,37 +4,52 @@ package Model;
  * Base Class for all Fighting Entities in the Game.
  */
 public abstract class FightingEntity {
-    public FightingEntity(Type type){
+    /**
+     * Instantiates a Fighting Entity of a specific Type.
+     * @param type of the FightingEntity
+     * @param maxHP of the FightingEntity
+     */
+    public FightingEntity(Type type, int maxHP){
         _type = type;
+        _maxHitPoints = maxHP;
+        _hitPoints = maxHP;
     }
 
-    protected double _attackValue;
+    protected int _attackValue;
     /**
      * Gets the Attack Value of a Fighting Entity.
      * The maximal Damage a Fighting Entity can make. It can be mitigated by the Defense Value.
      * @return A double how much Damage the Fighting Entity can make.
      *
      */
-    public double get_AttackValue(){
+    public int get_AttackValue(){
        return _attackValue;
     }
 
-    protected double _defenseValue;
+    protected int _defenseValue;
     /**
      * Gets the Defense Value of the Fighting Entity.
      * @return  How high the Defense Value is.
      */
-    double get_DefenseValue(){
+    public int get_DefenseValue(){
         return _defenseValue;
     }
 
-    protected double _hitPoints;
+    protected int _hitPoints;
     /**
      * Gets the HitPoints of the Fighting Entity.
      * @return HitPoints of the Entity
      */
-    double get_HitPoints(){
+    public int get_HitPoints(){
         return _hitPoints;
+    }
+
+    protected int _maxHitPoints;
+    public void set_maxHitPoints(int maxHitPoints){
+        _maxHitPoints = maxHitPoints;
+    }
+    public int get_maxHitPoints(){
+        return _maxHitPoints;
     }
 
 
@@ -42,7 +57,7 @@ public abstract class FightingEntity {
      * Reduces the HitPoints.
      * @param value: amount by which the HitPoints will be reduced.
      */
-    public void ReduceHitpoints(double value){
+    public void ReduceHitpoints(int value){
         this._hitPoints -= value;
     }
 
@@ -52,7 +67,7 @@ public abstract class FightingEntity {
      */
     public void Attack(FightingEntity target){
         if(Math.random() * 100 > CalculateHitChance(target)){ return; }
-        double damage = this.get_AttackValue() - target.get_DefenseValue();
+        int damage = this.get_AttackValue() - target.get_DefenseValue();
         target.ReduceHitpoints(damage);
     }
 
