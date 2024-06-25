@@ -40,4 +40,5 @@ Das Projekt wurde mit der Entwicklungsumgebung IntelliJ Version 2024.1.1 erstelt
 
 
 **Dokumentation**
-Eine vollständige Dokumentation befindet sich im Ordner Documentation.
+Eine JavaDoc Dokumentation befindet sich unter folgender URL: https://patrickblatti.github.io/RundenbasiertesRPG/index.html
+Im Ordner Documentation befinden sich zusätzliche Dateien, welche für das Projekt wichtig sind.
