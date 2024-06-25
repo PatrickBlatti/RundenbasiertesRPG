@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/pblat/OneDrive - TEKO Schweizerische Fachschule AG/Dokumente/TEKO/OOP/Sommersemester 2024/TurnbasedRPG/src/main/java</OriginalElement>
+  <nodes>
+    <node x="722.5" y="1139.5">EventInterfaces.ICustomEventInterface</node>
+    <node x="475.0" y="410.0">Model.FightingEntity</node>
+    <node x="1331.0" y="947.0">View.SpriteMangement.SpriteActionListener</node>
+    <node x="222.0" y="1127.0">Model.FightingEntityAI</node>
+    <node x="517.5" y="959.5">Model.Enemy</node>
+    <node x="532.0" y="1958.0">Controllers.GameController</node>
+    <node x="1323.5" y="-13.5">View.SpriteMangement.SpriteSheet</node>
+    <node x="782.0" y="1970.5">View.SpriteMangement.SpriteMetaDataGenerator</node>
+    <node x="-149.0" y="1122.0">Services.IFightingEntitiesService</node>
+    <node x="-34.0" y="1594.5">Services.FightingEntitiesService_Develop</node>
+    <node x="1411.5" y="302.0">View.SpriteMangement.SpriteSheetBuilder</node>
+    <node x="1084.5" y="1066.5">View.SpriteMangement.FightingEntityDisplayer</node>
+    <node x="855.5" y="959.5">EventInterfaces.IFightingEntityActionInterface</node>
+    <node x="-135.0" y="2054.5">Factories.ServiceFactory</node>
+    <node x="1059.5" y="410.0">View.SpriteMangement.SpriteEngine</node>
+    <node x="1024.5" y="1510.5">View.BattleFieldView</node>
+    <node x="405.5" y="1462.0">Model.Battlefield</node>
+    <node x="82.0" y="947.0">Model.Hero</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="View.SpriteMangement.FightingEntityDisplayer" target="View.SpriteMangement.SpriteSheet" relationship="TO_ONE">
+      <point x="-75.75" y="-104.5" />
+      <point x="1160.25" y="931.0" />
+      <point x="1136.0" y="931.0" />
+      <point x="1136.0" y="891.0" />
+      <point x="1036.0" y="891.0" />
+      <point x="1036.0" y="291.0" />
+      <point x="1396.0" y="291.0" />
+      <point x="1396.0" y="231.0" />
+      <point x="1389.75" y="231.0" />
+      <point x="-66.25" y="104.5" />
+    </edge>
+    <edge source="Services.FightingEntitiesService_Develop" target="Model.Hero" relationship="CREATE">
+      <point x="75.0" y="-56.5" />
+      <point x="191.0" y="1571.0" />
+      <point x="196.0" y="1571.0" />
+      <point x="196.0" y="1291.0" />
+      <point x="119.0" y="1291.0" />
+      <point x="-37.0" y="44.0" />
+    </edge>
+    <edge source="View.BattleFieldView" target="EventInterfaces.IFightingEntityActionInterface" relationship="TO_MANY">
+      <point x="-95.75" y="-140.5" />
+      <point x="1120.25" y="1471.0" />
+      <point x="1116.0" y="1471.0" />
+      <point x="1116.0" y="1311.0" />
+      <point x="996.0" y="1311.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="View.SpriteMangement.FightingEntityDisplayer" target="View.SpriteMangement.SpriteSheetBuilder" relationship="CREATE">
+      <point x="75.75" y="-104.5" />
+      <point x="1311.75" y="931.0" />
+      <point x="1436.0" y="931.0" />
+      <point x="1436.0" y="831.0" />
+      <point x="1576.0" y="831.0" />
+      <point x="0.0" y="249.0" />
+    </edge>
+    <edge source="Model.Battlefield" target="Model.FightingEntity" relationship="TO_MANY">
+      <point x="95.25" y="-189.0" />
+      <point x="691.25" y="1431.0" />
+      <point x="696.0" y="1431.0" />
+      <point x="696.0" y="731.0" />
+      <point x="686.5" y="731.0" />
+      <point x="70.5" y="141.0" />
+    </edge>
+    <edge source="Controllers.GameController" target="View.BattleFieldView" relationship="CREATE">
+      <point x="52.0" y="-153.0" />
+      <point x="688.0" y="1931.0" />
+      <point x="696.0" y="1931.0" />
+      <point x="696.0" y="1871.0" />
+      <point x="1216.0" y="1871.0" />
+      <point x="0.0" y="140.5" />
+    </edge>
+    <edge source="Model.Battlefield" target="Model.Enemy" relationship="TO_MANY">
+      <point x="95.25" y="-189.0" />
+      <point x="691.25" y="1431.0" />
+      <point x="696.0" y="1431.0" />
+      <point x="696.0" y="1391.0" />
+      <point x="636.0" y="1391.0" />
+      <point x="636.0" y="1051.0" />
+      <point x="635.25" y="1051.0" />
+      <point x="39.25" y="31.5" />
+    </edge>
+    <edge source="Model.Hero" target="Model.FightingEntity" relationship="GENERALIZATION">
+      <point x="0.0" y="-44.0" />
+      <point x="156.0" y="911.0" />
+      <point x="536.0" y="911.0" />
+      <point x="536.0" y="731.0" />
+      <point x="545.5" y="731.0" />
+      <point x="-70.5" y="141.0" />
+    </edge>
+    <edge source="Controllers.GameController" target="Model.Battlefield" relationship="CREATE">
+      <point x="52.0" y="-153.0" />
+      <point x="688.0" y="1931.0" />
+      <point x="696.0" y="1931.0" />
+      <point x="696.0" y="1871.0" />
+      <point x="691.25" y="1871.0" />
+      <point x="95.25" y="189.0" />
+    </edge>
+    <edge source="Controllers.GameController" target="Model.Battlefield" relationship="TO_ONE">
+      <point x="-52.0" y="-153.0" />
+      <point x="584.0" y="1931.0" />
+      <point x="500.75" y="1931.0" />
+      <point x="-95.25" y="189.0" />
+    </edge>
+    <edge source="Model.Enemy" target="Model.FightingEntity" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="596.0" y="911.0" />
+      <point x="536.0" y="911.0" />
+      <point x="536.0" y="731.0" />
+      <point x="545.5" y="731.0" />
+      <point x="-70.5" y="141.0" />
+    </edge>
+    <edge source="View.BattleFieldView" target="Model.Enemy" relationship="TO_MANY">
+      <point x="-95.75" y="-140.5" />
+      <point x="1120.25" y="1471.0" />
+      <point x="1116.0" y="1471.0" />
+      <point x="1116.0" y="1331.0" />
+      <point x="636.0" y="1331.0" />
+      <point x="636.0" y="1051.0" />
+      <point x="635.25" y="1051.0" />
+      <point x="39.25" y="31.5" />
+    </edge>
+    <edge source="View.BattleFieldView" target="View.SpriteMangement.FightingEntityDisplayer" relationship="CREATE">
+      <point x="95.75" y="-140.5" />
+      <point x="75.75" y="104.5" />
+    </edge>
+    <edge source="Factories.ServiceFactory" target="Services.FightingEntitiesService_Develop" relationship="CREATE">
+      <point x="85.5" y="-56.5" />
+      <point x="121.5" y="2031.0" />
+      <point x="116.0" y="2031.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="View.BattleFieldView" target="Model.Hero" relationship="TO_MANY">
+      <point x="-95.75" y="-140.5" />
+      <point x="1120.25" y="1471.0" />
+      <point x="1116.0" y="1471.0" />
+      <point x="1116.0" y="1351.0" />
+      <point x="496.0" y="1351.0" />
+      <point x="496.0" y="1271.0" />
+      <point x="193.0" y="1271.0" />
+      <point x="37.0" y="44.0" />
+    </edge>
+    <edge source="Model.Battlefield" target="EventInterfaces.ICustomEventInterface" relationship="TO_MANY">
+      <point x="95.25" y="-189.0" />
+      <point x="691.25" y="1431.0" />
+      <point x="696.0" y="1431.0" />
+      <point x="696.0" y="1251.0" />
+      <point x="836.0" y="1251.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="Model.Battlefield" target="Model.Hero" relationship="TO_MANY">
+      <point x="95.25" y="-189.0" />
+      <point x="691.25" y="1431.0" />
+      <point x="696.0" y="1431.0" />
+      <point x="696.0" y="1411.0" />
+      <point x="496.0" y="1411.0" />
+      <point x="496.0" y="1271.0" />
+      <point x="193.0" y="1271.0" />
+      <point x="37.0" y="44.0" />
+    </edge>
+    <edge source="Services.FightingEntitiesService_Develop" target="Services.IFightingEntitiesService" relationship="REALIZATION">
+      <point x="-75.0" y="-56.5" />
+      <point x="41.0" y="1571.0" />
+      <point x="38.5" y="1571.0" />
+      <point x="62.5" y="49.0" />
+    </edge>
+    <edge source="View.SpriteMangement.SpriteActionListener" target="View.SpriteMangement.SpriteEngine" relationship="TO_ONE">
+      <point x="0.0" y="-44.0" />
+      <point x="1536.0" y="911.0" />
+      <point x="1396.0" y="911.0" />
+      <point x="1396.0" y="851.0" />
+      <point x="1136.0" y="851.0" />
+      <point x="1136.0" y="731.0" />
+      <point x="1137.75" y="731.0" />
+      <point x="-78.25" y="141.0" />
+    </edge>
+    <edge source="View.SpriteMangement.FightingEntityDisplayer" target="View.SpriteMangement.SpriteEngine" relationship="CREATE">
+      <point x="75.75" y="-104.5" />
+      <point x="1311.75" y="931.0" />
+      <point x="1436.0" y="931.0" />
+      <point x="1436.0" y="831.0" />
+      <point x="1294.25" y="831.0" />
+      <point x="78.25" y="141.0" />
+    </edge>
+    <edge source="View.BattleFieldView" target="View.SpriteMangement.FightingEntityDisplayer" relationship="TO_MANY">
+      <point x="-95.75" y="-140.5" />
+      <point x="1120.25" y="1471.0" />
+      <point x="1116.0" y="1471.0" />
+      <point x="1116.0" y="1311.0" />
+      <point x="1160.25" y="1311.0" />
+      <point x="-75.75" y="104.5" />
+    </edge>
+    <edge source="Model.Battlefield" target="Model.FightingEntityAI" relationship="TO_ONE">
+      <point x="95.25" y="-189.0" />
+      <point x="691.25" y="1431.0" />
+      <point x="696.0" y="1431.0" />
+      <point x="696.0" y="1251.0" />
+      <point x="453.0" y="1251.0" />
+      <point x="77.0" y="44.0" />
+    </edge>
+    <edge source="View.SpriteMangement.SpriteSheetBuilder" target="View.SpriteMangement.SpriteSheet" relationship="CREATE">
+      <point x="0.0" y="-249.0" />
+      <point x="1576.0" y="271.0" />
+      <point x="1522.25" y="271.0" />
+      <point x="66.25" y="104.5" />
+    </edge>
+    <edge source="View.SpriteMangement.FightingEntityDisplayer" target="Model.FightingEntity" relationship="TO_ONE">
+      <point x="-75.75" y="-104.5" />
+      <point x="1160.25" y="931.0" />
+      <point x="1136.0" y="931.0" />
+      <point x="1136.0" y="911.0" />
+      <point x="696.0" y="911.0" />
+      <point x="696.0" y="731.0" />
+      <point x="686.5" y="731.0" />
+      <point x="70.5" y="141.0" />
+    </edge>
+    <edge source="Services.FightingEntitiesService_Develop" target="Model.Enemy" relationship="CREATE">
+      <point x="75.0" y="-56.5" />
+      <point x="191.0" y="1571.0" />
+      <point x="196.0" y="1571.0" />
+      <point x="196.0" y="1291.0" />
+      <point x="556.75" y="1291.0" />
+      <point x="-39.25" y="31.5" />
+    </edge>
+    <edge source="View.SpriteMangement.SpriteActionListener" target="View.SpriteMangement.SpriteSheet" relationship="TO_ONE">
+      <point x="0.0" y="-44.0" />
+      <point x="1536.0" y="911.0" />
+      <point x="1396.0" y="911.0" />
+      <point x="1396.0" y="231.0" />
+      <point x="1389.75" y="231.0" />
+      <point x="-66.25" y="104.5" />
+    </edge>
+    <edge source="Model.Battlefield" target="Model.FightingEntityAI" relationship="CREATE">
+      <point x="-95.25" y="-189.0" />
+      <point x="500.75" y="1431.0" />
+      <point x="299.0" y="1431.0" />
+      <point x="-77.0" y="44.0" />
+    </edge>
+    <edge source="Factories.ServiceFactory" target="Services.IFightingEntitiesService" relationship="TO_ONE">
+      <point x="-85.5" y="-56.5" />
+      <point x="-49.5" y="2031.0" />
+      <point x="-64.0" y="2031.0" />
+      <point x="-64.0" y="1671.0" />
+      <point x="-86.5" y="1671.0" />
+      <point x="-62.5" y="49.0" />
+    </edge>
+    <edge source="View.SpriteMangement.FightingEntityDisplayer" target="View.SpriteMangement.SpriteEngine" relationship="TO_ONE">
+      <point x="-75.75" y="-104.5" />
+      <point x="1160.25" y="931.0" />
+      <point x="1136.0" y="931.0" />
+      <point x="1136.0" y="731.0" />
+      <point x="1137.75" y="731.0" />
+      <point x="-78.25" y="141.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.5443864229765013" showDependencies="true" x="1184.4076738609115" y="1267.2589928057548" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

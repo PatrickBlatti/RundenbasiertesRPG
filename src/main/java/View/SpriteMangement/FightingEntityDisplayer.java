@@ -118,11 +118,9 @@ public class FightingEntityDisplayer extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        System.out.println(_fightingEntity.get_HitPoints());
         _progressBar.setValue(_fightingEntity.get_HitPoints()); //Might be problematic for Performance
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        //System.out.println("Cycle Progress: " + spriteEngine.getCycleProgress());
         BufferedImage sprite = _spriteSheet.getSprite(_spriteEngine.getCycleProgress());
         int x = (getWidth() - sprite.getWidth()) / 2;
         int y = (getHeight() - sprite.getHeight()) / 2;
