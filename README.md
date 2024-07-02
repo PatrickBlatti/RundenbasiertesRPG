@@ -36,9 +36,12 @@ Mögliche weitere Mechaniken:
 Die genaue Ausführung wird in den einzelnen Stories detailliert werden. Die Ausführungstiefe hängt davon ab, wie gut mit der Entwicklung vorwärts gekommen wird.
 
 **Zum Projekt**
+
 Das Projekt wurde mit der Entwicklungsumgebung IntelliJ Version 2024.1.1 erstelt. Wenn der Ordner mit dieser Version geöffnet wird, dann lässt sich das Programm kompilieren.
+Das Spiel wird aus dem GameController gestartet.
 
 
 **Dokumentation**
+
 Eine JavaDoc Dokumentation befindet sich unter folgender URL: https://patrickblatti.github.io/RundenbasiertesRPG/index.html
 Im Ordner Documentation befinden sich zusätzliche Dateien, welche für das Projekt wichtig sind.
