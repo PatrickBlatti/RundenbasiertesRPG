@@ -1,6 +1,7 @@
 package Services;
 
 import Model.Enemy;
+import Model.FightingEntity;
 import Model.Hero;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface IFightingEntitiesService {
      * Instantiates the Heroes.
      * @return All Heroes.
      */
-    public List<Hero> get_Heroes();
+    public List<Hero> get_Heroes(FightingEntity.Type type);
 
     /**
      * Instantiates the Enemies for the Stage

@@ -42,6 +42,10 @@ public class FightingEntityDisplayer extends JPanel {
 
     }
 
+    public boolean IsIdling(){
+        return _spriteSheet.IsIdling();
+    }
+
     /**
      * Initializes the Sprite.
      */
@@ -54,7 +58,7 @@ public class FightingEntityDisplayer extends JPanel {
                     withSheet(sheet).
                     withColumns(SpriteMetaDataGenerator.get_ColumnCount(_fightingEntity)).
                     withRows(SpriteMetaDataGenerator.get_RowCount(_fightingEntity)).
-                    withSpriteCount(SpriteMetaDataGenerator.get_SpritCount(_fightingEntity)).
+                    withSpriteCount(SpriteMetaDataGenerator.get_SpriteCount(_fightingEntity)).
                     build();
 
             addAnimationRanges(_fightingEntity);

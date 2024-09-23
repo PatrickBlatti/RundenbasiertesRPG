@@ -69,6 +69,8 @@ public class Battlefield {
         return _Enemies;
     }
 
+
+
     /**
      * Execute Attack from attacker to attacked.
      * ToDo: Correct implementation of dataflow of who attacks whom.
@@ -80,44 +82,19 @@ public class Battlefield {
         EndTurnForFightingEntity();
     }
 
-    //region EventHandling
-
-    private final List<ICustomEventInterface> _VictoryEventHandlers = new ArrayList<>();
     /**
-     * Adds an EventHandler for the Victory Event.
-     * @param eventHandler Eventhandler for Victory.
+     * Returns whether the Victory Condition is met.
+     * @return whether the Victory Condition is met.
      */
-    public void AddVictoryEventHandler(ICustomEventInterface eventHandler){
-        _VictoryEventHandlers.add(eventHandler);
+    public boolean VictoryConditionReached(){
+        return get_Enemies().stream().allMatch(x -> x.get_HitPoints() <= 0);
     }
 
     /**
-     * Raise Victory-Event for all Listeners.
+     * Returns whether the Victory Condition is met.
+     * @return whether the Victory Condition is met.
      */
-    private void RaiseVictoryEvent(){
-        for(ICustomEventInterface item : _VictoryEventHandlers){
-            item.Execute();
-        }
+    public boolean LooseConditionReached(){
+        return get_Enemies().stream().allMatch(x -> x.get_HitPoints() <= 0);
     }
-
-
-    private final List<ICustomEventInterface> _LossEventHandler = new ArrayList<>();
-    /**
-     * Adds an Eventhandler for the Loss Event.
-     * @param eventHandler Eventhandler for Loosing.
-     */
-    private void AddLossEvent(ICustomEventInterface eventHandler){
-        _LossEventHandler.add(eventHandler);
-    }
-
-    /**
-     * Raise Loss-Event for all Listeners.
-     */
-    private void RaiseLossEvent(){
-        for(ICustomEventInterface item : _LossEventHandler){
-            item.Execute();
-        }
-    }
-
-    //endregion
 }

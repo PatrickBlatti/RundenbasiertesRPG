@@ -33,7 +33,7 @@ public class TestDisplayer extends JPanel {
                     .withSheet(sheet)
                     .withColumns(SpriteMetaDataGenerator.get_ColumnCount(_fightingEntity))
                     .withRows(SpriteMetaDataGenerator.get_RowCount(_fightingEntity))
-                    .withSpriteCount(SpriteMetaDataGenerator.get_SpritCount(_fightingEntity))
+                    .withSpriteCount(SpriteMetaDataGenerator.get_SpriteCount(_fightingEntity))
                     .build();
 
             spriteSheet.addStateRange(SpriteSheet.State.Idle, 0, 5);

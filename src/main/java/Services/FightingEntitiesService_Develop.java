@@ -13,20 +13,23 @@ import java.util.List;
  */
 public class FightingEntitiesService_Develop  implements IFightingEntitiesService {
 
-    public List<Hero> get_Heroes(){
+    public List<Hero> get_Heroes(FightingEntity.Type type){
         List<Hero> heroes = new ArrayList<Hero>();
 
-        heroes.add(new Hero(FightingEntity.Type.Warrior, 100));
-
-        //heroes.add(new Hero(FightingEntity.Type.Wizard));
+        heroes.add(new Hero(type, 100));
         return heroes;
     }
 
 
     public List<Enemy> get_Enemies(int stage) {
         List<Enemy> enemies = new ArrayList<Enemy>();
-        enemies.add(new Enemy(FightingEntity.Type.Boar, 100));
-        //enemies.add(new Enemy(FightingEntity.Type.Mimic));
+        if (stage == 1) {
+            enemies.add(new Enemy(FightingEntity.Type.Boar, 100));
+        }
+        else if (stage == 2) {
+            enemies.add(new Enemy(FightingEntity.Type.Mimic, 100));
+        }
+
         return enemies;
     }
 }

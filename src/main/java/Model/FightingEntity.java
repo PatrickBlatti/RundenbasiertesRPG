@@ -1,9 +1,15 @@
 package Model;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Base Class for all Fighting Entities in the Game.
  */
 public abstract class FightingEntity {
+    private static final Logger log = LogManager.getLogger(FightingEntity.class);
+
     /**
      * Instantiates a Fighting Entity of a specific Type.
      * @param type of the FightingEntity
@@ -52,6 +58,9 @@ public abstract class FightingEntity {
         return _maxHitPoints;
     }
 
+    private String _Message;
+    public String get_Message(){ return _Message; }
+    public void set_Message(String message){_Message = message; }
 
     /**
      * Reduces the HitPoints.
@@ -66,9 +75,14 @@ public abstract class FightingEntity {
      * @param target: Fighting Entity that is attacked.
      */
     public void Attack(FightingEntity target){
-        if(Math.random() * 100 > CalculateHitChance(target)){ return; }
+        if(Math.random() * 100 > CalculateHitChance(target)){
+            log.log(Level.INFO, "Fighting Entity " + this._type.toString() + " missed " + target._type.toString());
+            return;
+        }
+
         int damage = this.get_AttackValue() - target.get_DefenseValue();
         target.ReduceHitpoints(damage);
+        log.log(Level.INFO, "Fighting Entity " + this._type.toString() + " attacked " + target._type.toString() + " for damage " + damage);
     }
 
     /**
@@ -76,8 +90,16 @@ public abstract class FightingEntity {
      * @param target Target of the Action.
      * @return the Chance of Success.
      */
-    private int CalculateHitChance(FightingEntity target){
-        return 80;
+    protected int CalculateHitChance(FightingEntity target){
+        var ret = 80;
+        if (target instanceof Enemy){ ret -= ((Enemy) target).get_Evasion();}
+        return ret;
+    }
+
+
+    private String _DispolayMessage = "";
+    public String get_DisplayMessage(){
+        return _DispolayMessage;
     }
 
     protected Type _type = null;
@@ -88,6 +110,7 @@ public abstract class FightingEntity {
     public Type get_Type(){
         return _type;
     }
+
     public enum Type{
         //Heroes
         Warrior(1),
@@ -96,7 +119,9 @@ public abstract class FightingEntity {
         Wizard(4),
         Paladin(5),
         Boar(100),
-        Mimic(101)
+        Mimic(101),
+        Ghost(102),
+        Mushroom(103)
 
         ;
 

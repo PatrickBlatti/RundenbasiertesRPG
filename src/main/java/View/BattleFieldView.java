@@ -14,11 +14,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import View.SpriteMangement.FightingEntityDisplayer;
 import View.SpriteMangement.SpriteMetaDataGenerator;
 import View.SpriteMangement.SpriteSheet;
-import  org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
@@ -30,29 +32,51 @@ public class BattleFieldView extends JFrame {
     private final int GRID_COLUMNCOUNT = 3;
 
     private final List<Hero> _heroes;
-    private List<FightingEntityDisplayer> _heroDisplayers = new ArrayList<>();
+    private final List<FightingEntityDisplayer> _heroDisplayers = new ArrayList<>();
     private final List<Enemy> _enemies;
-    private List<FightingEntityDisplayer> _enemyDisplayers = new ArrayList<>();
-    private BackgroundPanel _Panel;
+    private final List<FightingEntityDisplayer> _enemyDisplayers = new ArrayList<>();
+    private BackgroundPanel _panel;
     private GridBagConstraints _gridBagConstraints;
     private BufferedImage _backgroundImage;
     private int _currentHeroIndex = -1;
 
     /**
      * Constructor of the BattleFieldView
-     * @param heroes: Heroes on the BattleField
+     *
+     * @param heroes:  Heroes on the BattleField
      * @param enemies: Enemies on the BattleField
      */
-    public BattleFieldView(List<Hero> heroes, List<Enemy> enemies){
+    public BattleFieldView(List<Hero> heroes, List<Enemy> enemies) {
         _heroes = heroes;
         _enemies = enemies;
         initializeBattleField();
     }
 
+
+    public void SetAnimation_EnemyAttackHero() {
+        var hero = _heroDisplayers.get(0);
+        var enemy = _enemyDisplayers.get(0);
+        if (!hero.IsIdling() || !enemy.IsIdling()) {
+            var bfv = this;
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    bfv.SetAnimation_EnemyAttackHero();
+                }
+            }, 500);
+            return;
+        }
+
+        _enemyDisplayers.get(_currentHeroIndex).doAnimation(SpriteSheet.State.Attacking);
+        _heroDisplayers.get(_currentHeroIndex).doAnimation(SpriteSheet.State.Attacked);
+        _AttackButton.setEnabled(true);
+    }
+
     /**
      * Initialization of all visual elements on the BattleField
      */
-    private void initializeBattleField(){
+    private void initializeBattleField() {
         initializeGridWithBackground();
         placeEnemies();
         placeHeroes();
@@ -62,16 +86,16 @@ public class BattleFieldView extends JFrame {
     /**
      * Creates a GridBag with a Background.
      */
-    private void initializeGridWithBackground(){
+    private void initializeGridWithBackground() {
         try {
             _backgroundImage = ImageIO.read(new File(SpriteMetaDataGenerator.get_BackgroundPath()));
         } catch (IOException e) {
             logger.error("Failed to load background image", e);
         }
 
-        _Panel = new BackgroundPanel(_backgroundImage);
-        _Panel.setLayout(new GridBagLayout());
-        this.getContentPane().add(_Panel);
+        _panel = new BackgroundPanel(_backgroundImage);
+        _panel.setLayout(new GridBagLayout());
+        this.getContentPane().add(_panel);
 
         _gridBagConstraints = new GridBagConstraints();
 
@@ -82,14 +106,14 @@ public class BattleFieldView extends JFrame {
     /**
      * Creates all visual elements of the enemies.
      */
-    private void placeEnemies(){
+    private void placeEnemies() {
         var yPosition = 0;
 
-        for(var item : _enemies){
+        for (var item : _enemies) {
 
             if (item instanceof Enemy) {
                 var displayer = new FightingEntityDisplayer(item);
-                addToGrid(displayer, 0, yPosition, 1,1);
+                addToGrid(displayer, 0, yPosition, 1, 1);
                 displayer.setOpaque(false);
 
                 _enemyDisplayers.add(displayer);
@@ -102,14 +126,14 @@ public class BattleFieldView extends JFrame {
     /**
      * Creates all visual elements of the heroes.
      */
-    private void placeHeroes(){
+    private void placeHeroes() {
         var yPosition = 0;
 
-        for(var item : _heroes){
+        for (var item : _heroes) {
 
             if (item instanceof Hero) {
                 var displayer = new FightingEntityDisplayer(item);
-                addToGrid(displayer, 3, yPosition, 1,1);
+                addToGrid(displayer, 3, yPosition, 1, 1);
                 displayer.setOpaque(false);
 
                 _heroDisplayers.add(displayer);
@@ -118,14 +142,14 @@ public class BattleFieldView extends JFrame {
         }
     }
 
-    private JButton _AttackButton = new JButton("Angriff");
-    private JButton _DefendButton = new JButton("Abwehr");
+    private final JButton _AttackButton = new JButton("Angriff");
+    private final JButton _DefendButton = new JButton("Abwehr");
 
     /**
      * Creates the ActionButtons for the Battle.
      */
-    private void placeActionButtons(){
-        var yPosition =Math.max(_heroes.size(), _enemies.size()) + 1;
+    private void placeActionButtons() {
+        var yPosition = Math.max(_heroes.size(), _enemies.size()) + 1;
 
         //Add Attack Button
         _AttackButton.setEnabled(false);
@@ -137,34 +161,40 @@ public class BattleFieldView extends JFrame {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
+                _AttackButton.setEnabled(false);
                 _heroDisplayers.get(_currentHeroIndex).doAnimation(SpriteSheet.State.Attacking);
                 _enemyDisplayers.get(_currentHeroIndex).doAnimation(SpriteSheet.State.Attacked);
-                for(var item: _attackEventListeners){
+                for (var item : _attackEventListeners) {
                     item.executeAction(_enemies.get(0));
                 }
             }
 
-                                        });
-        addToGrid(_AttackButton, 0, yPosition, 4,1);
+        });
+        addToGrid(_AttackButton, 0, yPosition, 4, 1);
 
         //Add Defend Button
         yPosition += 1;
+        _DefendButton.setVisible(false); //At the moment only Attacks are supported
         _DefendButton.setEnabled(false);
-        addToGrid(_DefendButton, 0, yPosition, 4,1);
+        addToGrid(_DefendButton, 0, yPosition, 4, 1);
     }
 
-    private List<IFightingEntityActionInterface> _attackEventListeners = new ArrayList<>();
-    public void addAttackListener(IFightingEntityActionInterface eventListener){
+    private final List<IFightingEntityActionInterface> _attackEventListeners = new ArrayList<>();
+
+    public void addAttackListener(IFightingEntityActionInterface eventListener) {
         _attackEventListeners.add(eventListener);
     }
 
-
+    public void clearAttackListeners() {
+        _attackEventListeners.clear();
+    }
 
     /**
      * Sets which heroes Turn is currently
+     *
      * @param index
      */
-    public void setCurrentHero(int index){
+    public void setCurrentHero(int index) {
         _AttackButton.setEnabled(true);
         _DefendButton.setEnabled(false);
         _currentHeroIndex = index;
@@ -172,11 +202,12 @@ public class BattleFieldView extends JFrame {
 
     /**
      * Add a Component at a defined Position in the Grid.
+     *
      * @param component: component to add to the grid
-     * @param x: X-Position
-     * @param y: Y-Position
-     * @param width: width of the component
-     * @param height: height of the component
+     * @param x:         X-Position
+     * @param y:         Y-Position
+     * @param width:     width of the component
+     * @param height:    height of the component
      */
     private void addToGrid(Component component, int x, int y, int width, int height) {
         _gridBagConstraints.gridx = x;
@@ -186,14 +217,14 @@ public class BattleFieldView extends JFrame {
         _gridBagConstraints.weightx = 1.0;
         _gridBagConstraints.weighty = 1.0;
         _gridBagConstraints.fill = GridBagConstraints.BOTH;
-        _Panel.add(component, _gridBagConstraints);
+        _panel.add(component, _gridBagConstraints);
     }
 
     /**
      * Adds Space between Enemies and Heroes.
      */
     private void addSpacerPanel() {
-        var spacerPanel = new JPanel(){
+        var spacerPanel = new JPanel() {
             @Override
             public Dimension getPreferredSize() {
                 return new Dimension(275, 300);
@@ -205,26 +236,9 @@ public class BattleFieldView extends JFrame {
             }
         };
         spacerPanel.setOpaque(false);
-        addToGrid(spacerPanel,1,0, 1,1);
+        addToGrid(spacerPanel, 1, 0, 1, 1);
     }
-    /**
-     * Panel that paints the background image
-     */
-    class BackgroundPanel extends JPanel {
-        private BufferedImage backgroundImage;
-
-        public BackgroundPanel(BufferedImage backgroundImage) {
-            this.backgroundImage = backgroundImage;
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            if (backgroundImage != null) {
-                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-            }
-        }
-    }
-
 
 }
+
+
