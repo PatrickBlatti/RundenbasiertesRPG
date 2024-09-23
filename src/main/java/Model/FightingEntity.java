@@ -58,7 +58,7 @@ public abstract class FightingEntity {
         return _maxHitPoints;
     }
 
-    private String _Message;
+    private String _Message = "";
     public String get_Message(){ return _Message; }
     public void set_Message(String message){_Message = message; }
 
@@ -75,13 +75,17 @@ public abstract class FightingEntity {
      * @param target: Fighting Entity that is attacked.
      */
     public void Attack(FightingEntity target){
-        if(Math.random() * 100 > CalculateHitChance(target)){
+        var diceRoll = Math.random() * 100;
+        var hitChance = CalculateHitChance(target);
+        if( diceRoll > hitChance ){
             log.log(Level.INFO, "Fighting Entity " + this._type.toString() + " missed " + target._type.toString());
+            target.set_Message("Verfehlt");
             return;
         }
 
         int damage = this.get_AttackValue() - target.get_DefenseValue();
         target.ReduceHitpoints(damage);
+        target.set_Message(String.valueOf(damage));
         log.log(Level.INFO, "Fighting Entity " + this._type.toString() + " attacked " + target._type.toString() + " for damage " + damage);
     }
 
@@ -97,10 +101,6 @@ public abstract class FightingEntity {
     }
 
 
-    private String _DispolayMessage = "";
-    public String get_DisplayMessage(){
-        return _DispolayMessage;
-    }
 
     protected Type _type = null;
     /**

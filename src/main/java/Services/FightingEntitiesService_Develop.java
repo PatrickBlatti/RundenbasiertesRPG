@@ -29,6 +29,16 @@ public class FightingEntitiesService_Develop  implements IFightingEntitiesServic
         else if (stage == 2) {
             enemies.add(new Enemy(FightingEntity.Type.Mimic, 100));
         }
+        else if (stage == 3) {
+            enemies.add(new Enemy(FightingEntity.Type.Mushroom, 100));
+        }
+        else if (stage == 4) {
+            enemies.add(new Enemy(FightingEntity.Type.Ghost, 100));
+        }
+
+        for(Enemy item : enemies){
+            item.set_Stage(stage);
+        }
 
         return enemies;
     }

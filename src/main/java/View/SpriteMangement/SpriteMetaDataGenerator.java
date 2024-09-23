@@ -89,7 +89,10 @@ public class SpriteMetaDataGenerator {
             case Boar:
             case Mimic:
                 return 6;
-
+            case Ghost:
+                return 6;
+            case Mushroom:
+                return 5;
             default:
                 return 5;
         }
@@ -120,6 +123,10 @@ public class SpriteMetaDataGenerator {
             case Mimic:
                 return 5;
 
+            case Mushroom:
+                return 7;
+            case Ghost:
+                return 5;
             default:
                 return 5;
         }
@@ -154,6 +161,12 @@ public class SpriteMetaDataGenerator {
             case Mimic:
                 return 25;
 
+
+            case Ghost:
+                return 30;
+
+            case Mushroom:
+                return 33;
             default:
                 return 0;
         }
@@ -230,19 +243,23 @@ public class SpriteMetaDataGenerator {
     public static SpriteSheet.Range get_AttackedRange(FightingEntity fightingEntity) {
         switch (fightingEntity.get_Type()) {
             case Warrior:
-                return new SpriteSheet.Range(13, 19);
-            case Mage:
-                //return new SpriteSheet.Range(0,5);
+                return new SpriteSheet.Range(11, 17);
+//            case Mage:
+//                //return new SpriteSheet.Range(0,5);
             case Bowman:
-                //return new SpriteSheet.Range(0,8);
+                return new SpriteSheet.Range(42, 45);
             case Wizard:
-                //return new SpriteSheet.Range(0,6);
+                return new SpriteSheet.Range(32, 36);
             case Paladin:
-                //return new SpriteSheet.Range(0,5);
+                return new SpriteSheet.Range(6, 11);
             case Boar:
                 return new SpriteSheet.Range(5, 9);
-            case Mimic:
-                //return new SpriteSheet.Range(0,6);
+            case Mimic: //Mimic hat keine Attacked Animation
+                return new SpriteSheet.Range(0, 6);
+            case Ghost:
+                return new SpriteSheet.Range(27, 29);
+            case Mushroom:
+                return new SpriteSheet.Range(20, 22);
             default:
                 return new SpriteSheet.Range(0, 0);
         }

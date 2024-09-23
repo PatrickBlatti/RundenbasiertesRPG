@@ -10,6 +10,7 @@ import View.StartMenu;
 
 import javax.swing.*;
 
+import static java.awt.Component.CENTER_ALIGNMENT;
 import static javax.swing.JOptionPane.showConfirmDialog;
 
 /**
@@ -73,6 +74,7 @@ public class GameController {
         var x = showConfirmDialog(null, message, "", JOptionPane.YES_NO_OPTION);
         if (x == JOptionPane.YES_OPTION) {
             _BattleFieldView.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            _Stage = 0;
             showStartMenu();
         } else if (x == JOptionPane.NO_OPTION) {
             _BattleFieldView.dispose();
@@ -111,12 +113,22 @@ public class GameController {
             public void executeAction(FightingEntity attacked) {
                 var gc = GameController.get_Instance();
                 gc._Battlefield.Attack(null, null);
+
                 if (HandleVictoryLoss(gc)){
-                   _BattleFieldView.SetAnimation_EnemyAttackHero();
+                   _BattleFieldView.EndHeroTurn();
                 }
 
             }
         });
+    }
+
+    /**
+     * Executes the Action of the Enemy
+     */
+    public void ExecuteEnemyTurn(){
+        var bf = this.get_Battlefield();
+        bf.MakeEnemyMove();
+        HandleVictoryLoss(this);
     }
 
     private boolean HandleVictoryLoss(GameController gc){
@@ -125,6 +137,7 @@ public class GameController {
             CreateNewBattle(_HeroType);
             DisplayBattle();
             AddViewEventHandlers();
+            return false;
         } else if (gc._Battlefield.VictoryConditionReached() && _Stage >= 4) {
             GameOver(true);
             return false;
@@ -151,6 +164,7 @@ public class GameController {
         jFrame.setVisible(true);
         jFrame.setResizable(false);
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        jFrame.setLocationRelativeTo(null);
         _BattleFieldView = jFrame;
 
         //Set GameLogic to View
@@ -165,6 +179,7 @@ public class GameController {
 
         jFrame.setSize(800, 800);
         jFrame.pack();
+        jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
 
     }

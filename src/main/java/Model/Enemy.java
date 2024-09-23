@@ -6,7 +6,7 @@ package Model;
 public class Enemy extends FightingEntity {
 
     private int _Stage = 0;
-    private void set_Stage(int stage) {
+    public void set_Stage(int stage) {
         _Stage = stage;
     }
 

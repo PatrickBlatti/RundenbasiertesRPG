@@ -10,7 +10,9 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import  org.apache.logging.log4j.LogManager;
+import java.util.Calendar;
+
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
@@ -26,6 +28,7 @@ public class FightingEntityDisplayer extends JPanel {
 
     /**
      * Creates a new FightingEntityDisplayer and initializes it.
+     *
      * @param fightingEntity: FightingEntity to Display
      */
     public FightingEntityDisplayer(FightingEntity fightingEntity) {
@@ -42,19 +45,19 @@ public class FightingEntityDisplayer extends JPanel {
 
     }
 
-    public boolean IsIdling(){
+    public boolean IsIdling() {
         return _spriteSheet.IsIdling();
     }
 
     /**
      * Initializes the Sprite.
      */
-    private void initializeSprite(){
+    private void initializeSprite() {
         try {
             File f = new File(SpriteMetaDataGenerator.get_SpritePath(_fightingEntity));
             BufferedImage sheet = ImageIO.read(f);
 
-            _spriteSheet =  new SpriteSheetBuilder().
+            _spriteSheet = new SpriteSheetBuilder().
                     withSheet(sheet).
                     withColumns(SpriteMetaDataGenerator.get_ColumnCount(_fightingEntity)).
                     withRows(SpriteMetaDataGenerator.get_RowCount(_fightingEntity)).
@@ -69,7 +72,9 @@ public class FightingEntityDisplayer extends JPanel {
             _spriteEngine.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(_spriteSheet.getIsNewAnimation()){ _spriteEngine.invaldiate(); }
+                    if (_spriteSheet.getIsNewAnimation()) {
+                        _spriteEngine.invaldiate();
+                    }
                     repaint();
                 }
             });
@@ -81,6 +86,7 @@ public class FightingEntityDisplayer extends JPanel {
 
     /**
      * Configures the Animation Ranges of the FightingEntity.
+     *
      * @param fightingEntity: FightingEntity to Display
      */
     private void addAnimationRanges(FightingEntity fightingEntity) {
@@ -91,14 +97,15 @@ public class FightingEntityDisplayer extends JPanel {
         _spriteSheet.addStateRange(SpriteSheet.State.Attacking, range.Start, range.End);
 
         range = SpriteMetaDataGenerator.get_AttackedRange(fightingEntity);
-        _spriteSheet.addStateRange(SpriteSheet.State.Attacked, range.Start,range.End);
+        _spriteSheet.addStateRange(SpriteSheet.State.Attacked, range.Start, range.End);
     }
 
     /**
      * Executes the corresponding animation for the state
+     *
      * @param state: new state of the Sprite.
      */
-    public void doAnimation(SpriteSheet.State state){
+    public void doAnimation(SpriteSheet.State state) {
         _spriteSheet.setAnimationState(state);
     }
 
@@ -107,10 +114,11 @@ public class FightingEntityDisplayer extends JPanel {
 
     /**
      * Allows to override the preferred Dimensions.
+     *
      * @param height: preferred Height.
-     * @param width: preferred Width.
+     * @param width:  preferred Width.
      */
-    public void set_PreferredDimension(int height, int width){
+    public void set_PreferredDimension(int height, int width) {
         _preferredHeight = height;
         _preferredWidth = width;
     }
@@ -130,6 +138,86 @@ public class FightingEntityDisplayer extends JPanel {
         int y = (getHeight() - sprite.getHeight()) / 2;
         g2d.drawImage(sprite, x, y, this);
         g2d.dispose();
+
+        if (!_fightingEntity.get_Message().isEmpty()) {
+            ShowFightingEntityMessage(g);
+        }
     }
+
+    private Calendar _EntityMessageExpireDate;
+
+    /**
+     * Stellt die Message der Fighting Entity dar. Diese wird nur für kurze Zeit angezeigt und dann wieder gelöscht.
+     */
+    private void ShowFightingEntityMessage(Graphics g) {
+        String message = _fightingEntity.get_Message();
+        if (message.isEmpty()) {
+            return;
+        }
+
+        if (_EntityMessageExpireDate == null) {
+            _EntityMessageExpireDate = Calendar.getInstance();
+            _EntityMessageExpireDate.add(Calendar.SECOND, 2);
+        }
+
+        if (Calendar.getInstance().before(_EntityMessageExpireDate)) {
+
+            g.setColor(new Color(0, 0, 0, 150)); // Half transparent black Background
+            g.setFont(new Font("Arial", Font.BOLD, 16));
+            FontMetrics fm = g.getFontMetrics();
+            int textWidth = fm.stringWidth(message);
+            int textHeight = fm.getHeight();
+
+            //Calculate text placement
+            int x = (getWidth() - textWidth) / 2;
+            int y = (getHeight() - textHeight) / 2 + fm.getAscent();
+
+            //draw half transparent rectangle
+            g.fillRect(x - 10, y - fm.getAscent(), textWidth + 20, textHeight);
+
+            //draw text
+            g.setColor(Color.WHITE);
+            g.drawString(message, x, y);
+
+        } else {
+            _EntityMessageExpireDate = null;
+            _fightingEntity.set_Message("");
+            logger.debug("Text wird zurückgesetzt");
+        }
+    }
+
+//    private void ShowFightingEntityMessage(Graphics2D g) {
+//        String message = _fightingEntity.get_Message();
+//        if (message.isEmpty()) {
+//            return;
+//        }
+//
+//        if (_EntityMessageExpireDate == null) {
+//            _EntityMessageExpireDate = Calendar.getInstance();
+//            _EntityMessageExpireDate.add(Calendar.SECOND, 5);
+//        }
+//
+//        if (_EntityMessageExpireDate.before(Calendar.getInstance())) {
+//            _EntityMessageExpireDate = null;
+//            _fightingEntity.set_Message("");
+//            logger.debug("text wird zurückgesetzt");
+//            return;
+//        }
+//
+//
+//        // Text über dem Sprite zeichnen
+//        logger.debug("Text wird erstellt.");
+//
+//        g.setColor(Color.WHITE);  // Textfarbe
+//        g.setFont(new Font("Arial", Font.BOLD, 16)); // Schriftart und -größe
+//        FontMetrics fm = g.getFontMetrics();
+//        int textWidth = fm.stringWidth(message);
+//        int x = (getWidth() - textWidth) / 2; // Text zentrieren
+//        int y = 30; // Platzierung über dem Bild
+//
+//        g.drawString(message, x, y);
+//
+//
+//    }
 
 }

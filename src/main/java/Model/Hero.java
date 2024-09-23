@@ -11,6 +11,6 @@ public class Hero extends  FightingEntity{
 
     @Override
     public int get_AttackValue() {
-        return 20;
+        return 300;
     }
 }

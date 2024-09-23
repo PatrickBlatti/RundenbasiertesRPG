@@ -1,5 +1,6 @@
 package View;
 
+import Controllers.GameController;
 import EventInterfaces.IFightingEntityActionInterface;
 import Model.Enemy;
 import Model.Hero;
@@ -53,7 +54,7 @@ public class BattleFieldView extends JFrame {
     }
 
 
-    public void SetAnimation_EnemyAttackHero() {
+    public void EndHeroTurn() {
         var hero = _heroDisplayers.get(0);
         var enemy = _enemyDisplayers.get(0);
         if (!hero.IsIdling() || !enemy.IsIdling()) {
@@ -62,14 +63,16 @@ public class BattleFieldView extends JFrame {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    bfv.SetAnimation_EnemyAttackHero();
+                    bfv.EndHeroTurn();
                 }
             }, 500);
             return;
         }
 
+
         _enemyDisplayers.get(_currentHeroIndex).doAnimation(SpriteSheet.State.Attacking);
         _heroDisplayers.get(_currentHeroIndex).doAnimation(SpriteSheet.State.Attacked);
+        GameController.get_Instance().ExecuteEnemyTurn();
         _AttackButton.setEnabled(true);
     }
 
