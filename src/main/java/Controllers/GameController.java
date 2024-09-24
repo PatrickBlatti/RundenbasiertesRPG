@@ -67,7 +67,7 @@ public class GameController {
     }
 
     /**
-     * Player lost the Game. Teardown / restart happens here.
+     * Player won or lost the Game. Teardown / restart happens here.
      */
     public void GameOver(boolean won) {
         String message = won ? "Ihr habt gewonnen, wollt Ihr noch einmal spielen?" : "Ihr habt verloren, wollt Ihr es noch einmal probieren?";
